@@ -12,6 +12,5 @@ Vagrant.configure("2") do |config|
   config.vm.define "server2" do |server2|
      server2.vm.hostname = "server2"
      server2.vm.network "private_network", ip: "192.168.0.11"
-     config.vm.provision "shell", inline: "yum install mc -y"
   end
 end
