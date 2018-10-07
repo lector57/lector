@@ -1,0 +1,2 @@
+*/5 * * * * /home/lector/probe.sh VM2
+*/5 * * * * /home/lector/probe.sh VM3
