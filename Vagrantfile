@@ -2,12 +2,12 @@ Vagrant.configure("2") do |config|
 
   config.vm.box = "bento/centos-7.5"
   config.vm.box_check_update = false
-  
+
   config.vm.provider "virtualbox" do |vb|
     vb.gui = true
     vb.memory = "1024"
   end
-  
+
   config.vm.define "server1" do |server1|
     server1.vm.hostname = "server1"
     server1.vm.network "private_network", ip: "192.168.0.10"
@@ -19,9 +19,19 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
-    if [ $HOSTNAME == "server1" ]; then
-    yum install -y git
-    fi
-  SHELL
-  
+    case  $HOSTNAME in
+    server1)
+        yum install -y git
+        cd /home/vagrant
+        git clone https://github.com/lector57/lector.git
+        git branch task2
+        git pull origin task2
+        cat Vagrantfile
+        echo 192.168.0.10 server1 >> /etc/hosts
+        ;;
+        server2)
+        echo 192.168.0.11 server2 >> /etc/hosts
+        ;;
+    esac
+    SHELL
 end
