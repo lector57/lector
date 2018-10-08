@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
         cat Vagrantfile
         echo 192.168.0.10 server1 >> /etc/hosts
         ;;
-        server2)
+    server2)
         echo 192.168.0.11 server2 >> /etc/hosts
         ;;
     esac
