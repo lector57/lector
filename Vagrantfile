@@ -25,10 +25,13 @@ Vagrant.configure("2") do |config|
     echo 192.168.0.11 server2 >> /etc/hosts
     yum install -y git
     cd /home/vagrant
+    git init
+    git config --global user.email lector@tut.by
+    git config --global user.name Alexander Parhomenko
     git clone https://github.com/lector57/lector.git
-    git branch task2
-    cat Vagrantfile
-    chown -R vagrant:wheel /home/vagrant/lector
+    git checkout task2
+    chown vagrant:wheel /home/vagrant/lector -R
+    cat /home/vagrant/lector/Vagrantfile
   ;;
     server2)
     echo 192.168.0.10 server1 >> /etc/hosts
