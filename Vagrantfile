@@ -20,12 +20,10 @@ Vagrant.configure("2") do |config|
 
    config.vm.provision "shell", inline: <<-SHELL
    echo PubkeyAuthentication yes >> /etc/ssh/sshd_config
-   yum install -y expect
-   /vagrant/ssh_key_generate.exp
+   /vagrant/ssh_key.sh
    case  $HOSTNAME in
    server1)
    echo 192.168.0.11 server2 >> /etc/hosts
-   /vagrant/ssh_id_to_server2.exp
    yum install -y git
    cd /home/vagrant
    git clone https://github.com/lector57/lector.git
@@ -35,7 +33,6 @@ Vagrant.configure("2") do |config|
    ;;
    server2)
    echo 192.168.0.10 server1 >> /etc/hosts
-   /vagrant/ssh_id_to_server1.exp
    ;;
    esac
    SHELL
