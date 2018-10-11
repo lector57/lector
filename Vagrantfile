@@ -32,10 +32,10 @@ Vagrant.configure("2") do |config|
     git checkout task2
     chown vagrant:wheel /home/vagrant/lector -R
     cat /home/vagrant/lector/Vagrantfile
-  ;;
+    ;;
     server2)
     echo 192.168.0.10 server1 >> /etc/hosts
-  ;;
+    ;;
   esac
   /vagrant/ssh_key.sh
   SHELL
