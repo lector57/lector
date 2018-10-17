@@ -41,7 +41,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "apache" do |apache|
   apache.vm.hostname = "apache"
   apache.vm.network "private_network", ip: "192.168.0.10"
-  config.vm.network "forwarded_port", guest: 80, host: 12000
+  apache.vm.network "forwarded_port", guest: 8080, host: 80
   apache.vm.provision "shell", inline: <<-SHELL
   yum install -y mc httpd
   cp /vagrant/mod_jk.so /etc/httpd/modules/
@@ -87,8 +87,6 @@ Vagrant.configure("2") do |config|
   echo "JkMount /test* lb" >> $file2
   systemctl enable httpd
   systemctl start httpd
-  rm /vagrant/tomcat_name
-  rm /vagrant/tomcat_ip
   SHELL
   end
 end
