@@ -11,7 +11,7 @@ compile group: 'org.apache.commons', name: 'commons-io', version: '1.3.2'
 task populate  << {
 	writeToFile('./build/resources/main/greeting.txt',  'versionapp = '+versionapp)	
 	println "version =" + versionapp
-    }
+}
 war.finalizedBy populate
 
 task increment << {
@@ -19,12 +19,12 @@ task increment << {
 }
 	
 def writeToFile( def fileName, def infoList) {
-		new File("$fileName").withWriter {
+	new File("$fileName").withWriter {
 			out -> infoList.each {
-					out.print it
+			out.print it
 			}
 	
-		}
+	}
 }
 
 def inc (versionapp){
@@ -34,7 +34,7 @@ def inc (versionapp){
     String major=v.substring(0,v.lastIndexOf("."));
     String s = "versionapp = " + major + "."+ m  
     new File('./','gradle.properties').withWriter('utf-8') { 
-         writer -> writer.writeLine s 
+			writer -> writer.writeLine s 
 	}
 }
 
