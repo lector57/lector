@@ -1,38 +1,37 @@
 apply plugin: 'war'
 repositories{
-	mavenCentral()
+  mavenCentral()
 }
 
 dependencies {
-		compile group: 'log4j', name: 'log4j', version: '1.2.17'
-		compile group: 'org.apache.commons', name: 'commons-io', version: '1.3.2'
+  compile group: 'log4j', name: 'log4j', version: '1.2.17'
+  compile group: 'org.apache.commons', name: 'commons-io', version: '1.3.2'
 }
 
 task populate  << {
-	writeToFile('./build/resources/main/greeting.txt',  'versionapp = '+versionapp)	
-	println "version =" + versionapp
+  writeToFile('./build/resources/main/greeting.txt',  'versionapp = '+versionapp)	
+  println "version =" + versionapp
 }
 	
 processResources.finalizedBy populate
 
 task increment << {
-	inc(versionapp)
+  inc(versionapp)
 }
 
 task sort << {
-	Sort()
+  Sort()
 }
 
-def writeToFile( def fileName, def infoList)
-{
-	new File("$fileName").withWriter 
-		{
-			out -> infoList.each
-			{
-				out.print it
-			}
+def writeToFile( def fileName, def infoList){
+  new File("$fileName").withWriter 
+    {
+	  out -> infoList.each
+    	{
+          out.print it
+        }
 	
-		}	
+    }
 }
 
 def inc (versionapp){
@@ -41,9 +40,9 @@ def inc (versionapp){
 	int m=minor.toInteger()+1                      
 	String major=v.substring(0,v.lastIndexOf("."));
 	String s = "versionapp = " + major + "."+ m  
-	new File('./','gradle.properties').withWriter('utf-8') { 
-	writer -> writer.writeLine s 
-	}
+	new File('./','gradle.properties').withWriter('utf-8'){ 
+		writer -> writer.writeLine s 
+		}
 }
 
 def Sort()
@@ -57,31 +56,31 @@ def Sort()
 	
 	while ( i < n)
 	{
-		min_pos = i
-		str = arr[i].split("\\.")
-		min_val = Integer.valueOf(str[1])*10 + Integer.valueOf(str[2])
-		y = i + 1
-		while (y < n)
-		{
-			str = arr[y].split("\\.");
-			if ((Integer.valueOf(str[1])*10 + Integer.valueOf(str[2])) < min_val )
-			{
-				min_val = Integer.valueOf(str[1])*10 + Integer.valueOf(str[2])
-				min_pos = y
-			}
-			y = y + 1
+      min_pos = i
+      str = arr[i].split("\\.")
+      min_val = Integer.valueOf(str[1])*10 + Integer.valueOf(str[2])
+      y = i + 1
+      while (y < n)
+        {
+          str = arr[y].split("\\.");
+          if ((Integer.valueOf(str[1])*10 + Integer.valueOf(str[2])) < min_val )
+            {
+              min_val = Integer.valueOf(str[1])*10 + Integer.valueOf(str[2])
+			  min_pos = y
+            }
+		  y = y + 1
 		}
 		if ( i != min_pos )
-			{
-				s = arr[i]
-				arr[i] = arr[min_pos]
-				arr[min_pos] = s
-			}
-		i = i + 1
+          {
+            s = arr[i]
+			arr[i] = arr[min_pos]
+			arr[min_pos] = s
+		  }
+	  i = i + 1
 	}
 	for (i = 0; i < n; i++)
 	{
-		println arr[i]
+      println arr[i]
 	}	
 }
 
