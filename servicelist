@@ -1,0 +1,2 @@
+ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+j6scizkgmaic        my-tomcat           replicated          3/3                 my-tomcat:1.0.10    *:8080->8080/tcp

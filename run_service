@@ -1,0 +1,18 @@
+#!/bin/bash
+
+clear
+SERVICE=$1
+docker service ls|tee servicelist
+while read LINE
+do
+  echo $LINE
+  if [[ "$LINE" =~ .*"$1"*. ]]
+  then
+     docker service update $SERVICE
+  else
+     docker service create --name my-tomcat --replicas 3 --publish 8080:8080 my-tomcat:1.0.10
+  fi
+done < servicelist
+
+
+
