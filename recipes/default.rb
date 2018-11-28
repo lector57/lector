@@ -12,10 +12,19 @@ end
 
 yum_package 'docker-ce'
 
-execute 'docker registries-insecure-config' do
-  command 'echo { "insecure-registries" : ["ip_address:5000" ] } > /etc/docker/daemon.json'
-end
-
 service "docker" do
   action :start
 end
+
+#execute 'docker registries-insecure-config' do
+#  command 'echo { "insecure-registries" : ["ip_address:5000"] } > /etc/docker/daemon.json'
+#end
+template '/etc/docker/daemon.json' do
+  source 'default.erb'
+  mode '0600'
+  owner 'root'
+  group 'root'
+  action:create
+end
+
+
