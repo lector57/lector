@@ -1,0 +1,46 @@
+#!/bin/bash
+
+version="1.0.1"
+
+CONTAINER_NAME="my-tomcat:$version"
+
+docker pull localhost:5000/$CONTAINER_NAME
+
+docker ps > /tmp/docker_container
+
+PORT_8080="false"
+PORT_8081="false"
+
+while read LINE
+do
+  
+if [[  "$LINE" =~ ':8080' ]]; then
+    PORT_8080="true"
+    arrLINE1=(${LINE// / })
+    container_ID_1=${arrLINE1[0]}
+fi
+
+if [[  "$LINE" =~ ':8081' ]]; then
+    PORT_8081="true"
+    arrLINE2=(${LINE// / })
+    container_ID_2=${arrLINE2[0]}
+fi
+
+  
+done < /tmp/docker_container
+
+if [[ "$PORT_8080" == "false" ]] && [[ "$PORT_8081" == "false" ]]; then
+    docker run -d -p 8080:8080 $CONTAINER_NAME
+fi
+
+if [[ "$PORT_8080" == "true" ]] && [[ "$PORT_8081" == "false" ]]; then
+    docker stop $container_ID_1
+    docker run -d -p 8081:8080 $CONTAINER_NAME
+fi
+
+if [[ "$PORT_8080" == "false" ]] && [[ "$PORT_8081" == "true" ]]; then
+    docker stop $container_ID_2
+    docker run -d -p 8080:8080 $CONTAINER_NAME
+fi
+
+rm /tmp/docker_container

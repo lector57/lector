@@ -1,0 +1,26 @@
+#!/usr/bin/perl
+
+
+system clear;
+$version="1.0.1";
+open(fl1,"./metadata.rb") or die $!;
+open(fl2,">/tmp/~metadata.rb");
+$lock=0;
+while ($str=<fl1>) {
+  chomp $str;
+  if (( $str =~ "version") && ($lock == 0)){
+     $lock=1;
+     @ver=split(' ',$str);
+     @ver[1] =  " '$version" . "\'" ;
+     $st=@ver[0] . @ver[1];
+     print @ver[0];
+     print @ver[1];
+     
+     print  fl2 "$st\n";
+  }
+  else {
+     print fl2 "$str\n";
+  }
+}
+close (fl1);close (fl2);
+system "mv /tmp/~metadata.rb ./metadata.rb"

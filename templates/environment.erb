@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+
+
+system clear;
+$version="1.0.1";
+$environment="chef_server";
+system "knife environment show $environment -F json > /tmp/environment.json";
+$cookbook_name="docker";
+open(fl1,"/tmp/environment.json") or die $!;
+open(fl2,">/tmp/~environment.json");
+while ($str=<fl1>) {
+  chomp $str;
+  if( index($str,$cookbook_name) > 1 ) {
+    @ver=split('=',$str);
+    @ver[1] =  "= $version" . "\"" ;
+    $st=@ver[0] . @ver[1];
+    print  fl2 "$st\n";
+  }
+  else {
+     print fl2 "$str\n";
+  }
+}
+close (fl1);close (fl2);
+system "knife environment from file /tmp/~environment.json"
