@@ -6,7 +6,7 @@ node ('server'){
       sh 'berks install && berks upload docker --force'
       sh 'chef-client'
       sh 'git config --global user.email "lector@tut.by"'
-      sh 'git config --global user.name "Your Name"'
+      sh 'git config --global user.name "Alexander Parhomenko"'
       sh 'git add .'
       sh 'git commit -m "task10"'
       sh 'git push origin task10 --force'
