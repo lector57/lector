@@ -1,0 +1,14 @@
+node ('server'){
+    sh 'mkdir /root/cookbooks/docker -p'
+    dir('/root/cookbooks/docker') {
+      git branch: 'task10', credentialsId: 'lector', url: 'git@github.com:lector57/lector.git'
+      sh 'echo  default[\\"docker\\"][\\"version\\"]=\\"$version\\" > /root/cookbooks/docker/attributes/default.rb'
+      sh 'berks install && berks upload docker --force'
+      sh 'chef-client'
+      sh 'git config --global user.email "lector@tut.by"'
+      sh 'git config --global user.name "Your Name"'
+      sh 'git add .'
+      sh 'git commit -m "task10"'
+      sh 'git push origin task10 --force'
+    }
+}
