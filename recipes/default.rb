@@ -8,6 +8,7 @@ template '/tmp/docker_up.sh' do
   group 'root'
 end
 
+
 template '/tmp/metadata.pl' do
   source 'metadata.erb'
   mode '0744'
