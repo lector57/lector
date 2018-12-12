@@ -25,7 +25,7 @@ end
 
 puts #{node["docker"]["version"]}
 
-bash '/tmp/metadata' do
+bash 'metadata' do
   user 'root'
   cwd '/tmp'
   code '/tmp/metadata.pl'
@@ -42,5 +42,5 @@ end
 bash 'environment' do
   user 'root'
   cwd '/tmp'
-  code '/tmp/environment.sh'
+  code '/tmp/environment.pl'
 end

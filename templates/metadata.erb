@@ -3,7 +3,7 @@
 
 system clear;
 $version="1.0.1";
-open(fl1,"./metadata.rb") or die $!;
+open(fl1,"/root/cookbooks/docker/metadata.rb") or die $!;
 open(fl2,">/tmp/~metadata.rb");
 $lock=0;
 while ($str=<fl1>) {
@@ -23,4 +23,4 @@ while ($str=<fl1>) {
   }
 }
 close (fl1);close (fl2);
-system "mv /tmp/~metadata.rb /root/cookbooks/docker/metadata/metadata.rb"
+system "mv /tmp/~metadata.rb /root/cookbooks/docker/metadata.rb"
